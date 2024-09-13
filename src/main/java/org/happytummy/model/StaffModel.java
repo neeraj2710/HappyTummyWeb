@@ -10,15 +10,12 @@ public class StaffModel {
     private static Connection conn;
     static {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/happytummy", "root", "neeraj");
+
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@//localhost/xe","happytummyweb","happytummyweb");
 
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("ClassNotFoundException: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -42,13 +39,14 @@ public class StaffModel {
 
     public static boolean addStaff(StaffPojo staff)throws SQLException{
         PreparedStatement ps = conn.prepareStatement("insert into staff values(?,?,?,?,?,?,?)");
-        ps.setString(1,staff.getFname());
-        ps.setString(2,staff.getLname());
-        ps.setString(3,staff.getEmailId());
-        ps.setString(4,staff.getGender());
-        ps.setString(5,staff.getRole());
-        ps.setDouble(6,staff.getSalary());
-        ps.setString(7,getNewId());
+        ps.setString(1,getNewId());
+        ps.setString(2,staff.getFname());
+        ps.setString(3,staff.getLname());
+        ps.setString(4,staff.getEmailId());
+        ps.setString(5,staff.getGender());
+        ps.setString(6,staff.getRole());
+        ps.setDouble(7,staff.getSalary());
+
         return ps.executeUpdate()==1;
     }
 
@@ -58,13 +56,14 @@ public class StaffModel {
         List<StaffPojo> list = new ArrayList<StaffPojo>();
         while (rs.next()) {
             StaffPojo staff = new StaffPojo();
-            staff.setFname(rs.getString(1));
-            staff.setLname(rs.getString(2));
-            staff.setEmailId(rs.getString(3));
+            staff.setId(rs.getString(1));
+            staff.setFname(rs.getString(2));
+            staff.setLname(rs.getString(3));
+            staff.setEmailId(rs.getString(4));
             staff.setGender(rs.getString(4));
-            staff.setRole(rs.getString(5));
-            staff.setSalary(rs.getDouble(6));
-            staff.setId(rs.getString(7));
+            staff.setRole(rs.getString(6));
+            staff.setSalary(rs.getDouble(7));
+
             list.add(staff);
         }
         return list;

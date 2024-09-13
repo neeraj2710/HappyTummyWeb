@@ -8,15 +8,12 @@ public class OwnerModel {
     private static Connection conn;
     static {
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/happytummy","root","neeraj");
+
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@//localhost/xe","happytummyweb","happytummyweb");
 
         }catch (SQLException ex){
             System.out.println("SQLException: " + ex.getMessage());
             ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("ClassNotFoundException: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 

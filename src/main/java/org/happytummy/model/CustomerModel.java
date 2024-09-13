@@ -9,7 +9,7 @@ public class CustomerModel {
     static {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/happytummy","root","neeraj");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@//localhost/xe","happytummyweb","happytummyweb");
 
         }catch (SQLException ex){
             System.out.println("SQLException: " + ex.getMessage());
